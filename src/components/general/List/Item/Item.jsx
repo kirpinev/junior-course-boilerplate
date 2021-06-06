@@ -1,3 +1,3 @@
-import React from "react";
+import React from 'react';
 
-export const Item = ({ text }) => <li>{text}</li>;
+export const Item = ({ children }) => <li>{children}</li>;
