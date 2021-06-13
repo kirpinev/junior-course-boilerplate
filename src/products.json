@@ -1,26 +1,38 @@
 [
   {
     "id": 1,
-    "name": "Имя товара1"
+    "isInStock": false,
+    "img": "https://24tv.ua/resources/photos/news/1446x933_DIR/202102/1544920_14869344.jpg?202102142533",
+    "title": "Starship",
+    "price": "1 000",
+    "subPriceContent": " ₽",
+    "rating": 3
   },
   {
     "id": 2,
-    "name": "Имя товара2"
+    "isInStock": true,
+    "img": "http://cdn.iz.ru/sites/default/files/styles/900x506/public/news-2020-12/20201211_gaf_ic10_003.jpg?itok=pb9oeGfs",
+    "title": "Falcon 9",
+    "price": "900",
+    "subPriceContent": " ₽",
+    "rating": 5
   },
   {
     "id": 3,
-    "name": "Имя товара3"
+    "isInStock": true,
+    "img": "https://aboutspacejornal.net/wp-content/uploads/2018/01/D40Q8_E7TYM1.jpg",
+    "title": "Falcon Heavy",
+    "price": "1499",
+    "subPriceContent": " ₽",
+    "rating": 4
   },
   {
     "id": 4,
-    "name": "Имя товара4"
-  },
-  {
-    "id": 5,
-    "name": "Имя товара5"
-  },
-  {
-    "id": 6,
-    "name": "Имя товара6"
+    "isInStock": true,
+    "img": "https://labuda.blog/wp-content/uploads/2020/01/c2f02231cf4.jpeg",
+    "title": "Dragon",
+    "price": "450",
+    "subPriceContent": " ₽",
+    "rating": 4
   }
 ]

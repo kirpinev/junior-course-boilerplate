@@ -1,3 +1,5 @@
-import React from 'react';
+import styled from 'styled-components';
 
-export const Item = ({ children }) => <li>{children}</li>;
+export const Item = styled.li`
+  list-style-type: none;
+`;

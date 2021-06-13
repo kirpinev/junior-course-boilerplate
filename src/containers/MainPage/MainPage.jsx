@@ -1,15 +1,11 @@
-import React, { useMemo } from 'react';
+import React from 'react';
 import { ProductsList } from '../../components';
 import { Container, Title } from '../../uikit';
 import products from '../../products.json';
 
-export const MainPage = () => {
-  const firstThreeProducts = useMemo(() => products.slice(0, 3), []);
-
-  return (
-    <Container>
-      <Title text="Список товаров" />
-      <ProductsList products={firstThreeProducts} />
-    </Container>
-  );
-};
+export const MainPage = () => (
+  <Container maxWidth="736px">
+    <Title as="h1">Список товаров</Title>
+    <ProductsList products={products} />
+  </Container>
+);
