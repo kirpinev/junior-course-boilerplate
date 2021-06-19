@@ -1,16 +1,12 @@
-import React from 'react';
+import React, { memo } from 'react';
 import ProductCard from 'csssr-school-product-card';
-import { Icons } from '../../Icons';
 import { List } from '../../uikit';
+import { Icons } from '../../Icons';
 
-export const ProductsList = ({ products = [] }) => {
-  if (products.length === 0) {
-    return <p>Список товаров пуст</p>;
-  }
-
-  return (
-    <List>
-      {products.map(item => (
+export const ProductsList = memo(({ products }) => (
+  <List>
+    {products.length !== 0 ? (
+      products.map(item => (
         <List.Item key={item.id}>
           <ProductCard
             isInStock={item.isInStock}
@@ -23,7 +19,9 @@ export const ProductsList = ({ products = [] }) => {
             ratingComponent={Icons.Star}
           />
         </List.Item>
-      ))}
-    </List>
-  );
-};
+      ))
+    ) : (
+      <p>Товаров не найдено :(</p>
+    )}
+  </List>
+));
