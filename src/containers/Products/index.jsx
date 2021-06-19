@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { PriceSearchForm, ProductsList } from '../../components';
+import { ProductsSearchForm, ProductsList } from '../../components';
 import { Container, ProductListContainer, Title } from '../../uikit';
 import productsList from '../../products.json';
 
@@ -56,7 +56,7 @@ export const Products = () => {
       <section>
         <Title as="h1">Список товаров</Title>
         <ProductListContainer>
-          <PriceSearchForm
+          <ProductsSearchForm
             minPrice={minPrice}
             maxPrice={maxPrice}
             minPricePlaceholder={minPricePlaceholder}

@@ -21,7 +21,7 @@ export const ProductsList = memo(({ products }) => (
         </List.Item>
       ))
     ) : (
-      <p>Товаров не найдено :(</p>
+      <List.Item>Товаров не найдено :(</List.Item>
     )}
   </List>
 ));

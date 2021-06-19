@@ -1,2 +1,2 @@
-export * from './PriceSearchForm';
+export * from './ProductsSearchForm';
 export * from './ProductsList';

@@ -1,7 +1,7 @@
 import React, { memo } from 'react';
 import { Form } from '../../uikit';
 
-export const PriceSearchForm = memo(
+export const ProductsSearchForm = memo(
   ({
     minPrice,
     maxPrice,
