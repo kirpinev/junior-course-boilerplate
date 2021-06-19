@@ -17,7 +17,6 @@ export const ProductsSearchForm = memo(
         от
       </Form.Label>
       <Form.Input
-        type="number"
         id="min"
         width="91px"
         marginRight="17px"
@@ -29,7 +28,6 @@ export const ProductsSearchForm = memo(
         до
       </Form.Label>
       <Form.Input
-        type="number"
         id="max"
         width="91px"
         value={maxPrice}

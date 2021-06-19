@@ -1,5 +1,6 @@
 import React, { memo } from 'react';
 import ProductCard from 'csssr-school-product-card';
+import { formatMoney } from 'csssr-school-utils';
 import { List } from '../../uikit';
 import { Icons } from '../../Icons';
 
@@ -12,7 +13,7 @@ export const ProductsList = memo(({ products }) => (
             isInStock={item.isInStock}
             img={item.img}
             title={item.title}
-            price={item.price}
+            price={formatMoney(item.price, 0)}
             subPriceContent={item.subPriceContent}
             maxRating={5}
             rating={item.rating}

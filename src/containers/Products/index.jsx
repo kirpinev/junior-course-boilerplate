@@ -1,19 +1,19 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useMemo, useState } from 'react';
+import { maxBy, minBy, toInt } from 'csssr-school-utils';
 import { ProductsSearchForm, ProductsList } from '../../components';
 import { Container, ProductListContainer, Title } from '../../uikit';
 import productsList from '../../products.json';
 
-const sortedProductsList = productsList.sort((a, b) => a.price - b.price);
-const minPricePlaceholder = sortedProductsList[0].price;
-const maxPricePlaceholder = sortedProductsList[sortedProductsList.length - 1].price;
-
 export const Products = () => {
   const [products, setProducts] = useState(productsList);
-  const [minPrice, setMinPrice] = useState(0);
-  const [maxPrice, setMaxPrice] = useState(0);
+  const [minPrice, setMinPrice] = useState('');
+  const [maxPrice, setMaxPrice] = useState('');
 
-  const handleMinPriceChange = useCallback(e => setMinPrice(Math.abs(e.target.value)), []);
-  const handleMaxPriceChange = useCallback(e => setMaxPrice(Math.abs(e.target.value)), []);
+  const minPricePlaceholder = useMemo(() => minBy(p => p.price, productsList), []);
+  const maxPricePlaceholder = useMemo(() => maxBy(p => p.price, productsList), []);
+
+  const handleMinPriceChange = useCallback(e => setMinPrice(toInt(e.target.value)), []);
+  const handleMaxPriceChange = useCallback(e => setMaxPrice(toInt(e.target.value)), []);
 
   const handleOnlyMinValue = useCallback(() => {
     const filteredProducts = productsList.filter(product => product.price >= minPrice);
@@ -34,9 +34,9 @@ export const Products = () => {
     e => {
       e.preventDefault();
 
-      const isPriceZero = minPrice === 0 && maxPrice === 0;
-      const isOnlyMinPricePresented = minPrice > 0 && maxPrice === 0;
-      const isOnlyMaxPricePresented = minPrice === 0 && maxPrice > 0;
+      const isPriceZero = Number(minPrice) === 0 && Number(maxPrice) === 0;
+      const isOnlyMinPricePresented = minPrice > 0 && Number(maxPrice) === 0;
+      const isOnlyMaxPricePresented = Number(minPrice) === 0 && maxPrice > 0;
 
       if (isPriceZero) {
         setProducts(productsList);
@@ -59,8 +59,8 @@ export const Products = () => {
           <ProductsSearchForm
             minPrice={minPrice}
             maxPrice={maxPrice}
-            minPricePlaceholder={minPricePlaceholder}
-            maxPricePlaceholder={maxPricePlaceholder}
+            minPricePlaceholder={minPricePlaceholder.price}
+            maxPricePlaceholder={maxPricePlaceholder.price}
             handleMinPriceChange={handleMinPriceChange}
             handleMaxPriceChange={handleMaxPriceChange}
             handleProductsSearch={handleProductsSearch}
