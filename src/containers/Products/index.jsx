@@ -1,14 +1,10 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { maxBy, minBy, toInt } from 'csssr-school-utils';
-import { ProductsSearchForm, ProductsList, EmptyProductsList } from '../../components';
+import { ProductsSearchForm, ProductsList, EmptyProductsList, LogRender } from '../../components';
 import { Container, ProductListContainer, Title } from '../../uikit';
-import { logRender } from '../../hocs';
 import productsList from '../../products.json';
 
-const ProductsSearchFormWithLogger = logRender(ProductsSearchForm);
-const ProductsListWithLogger = logRender(ProductsList);
-
-export class Products extends Component {
+export class Products extends LogRender {
   state = { products: productsList, minPrice: '', maxPrice: '' };
 
   minPricePlaceholder = minBy(p => p.price, productsList);
@@ -56,7 +52,7 @@ export class Products extends Component {
         <section>
           <Title as="h1">Список товаров</Title>
           <ProductListContainer>
-            <ProductsSearchFormWithLogger
+            <ProductsSearchForm
               minPrice={this.state.minPrice}
               maxPrice={this.state.maxPrice}
               minPricePlaceholder={this.minPricePlaceholder.price}
@@ -68,7 +64,7 @@ export class Products extends Component {
             {!this.state.products || this.state.products.length === 0 ? (
               <EmptyProductsList />
             ) : (
-              <ProductsListWithLogger products={this.state.products} />
+              <ProductsList products={this.state.products} />
             )}
           </ProductListContainer>
         </section>

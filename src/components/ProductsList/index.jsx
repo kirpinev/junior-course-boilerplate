@@ -1,10 +1,11 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { formatMoney } from 'csssr-school-utils';
 import ProductCard from 'csssr-school-product-card';
 import { List } from '../../uikit';
 import { Icons } from '../../Icons';
+import { LogRender } from '../LogRender';
 
-export class ProductsList extends Component {
+export class ProductsList extends LogRender {
   render() {
     return (
       <List>

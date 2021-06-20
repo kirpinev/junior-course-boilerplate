@@ -1,1 +1,0 @@
-export { logRender } from './logRender';

@@ -1,7 +1,8 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { Form } from '../../uikit';
+import { LogRender } from '../LogRender';
 
-export class ProductsSearchForm extends Component {
+export class ProductsSearchForm extends LogRender {
   render() {
     return (
       <Form width="256px" marginRight="48px">
