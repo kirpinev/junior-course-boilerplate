@@ -1,73 +1,73 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { Component } from 'react';
 import { maxBy, minBy, toInt } from 'csssr-school-utils';
-import { ProductsSearchForm, ProductsList } from '../../components';
+import { ProductsSearchForm, ProductsList, LogRender } from '../../components';
 import { Container, ProductListContainer, Title } from '../../uikit';
 import productsList from '../../products.json';
 
-export const Products = () => {
-  const [products, setProducts] = useState(productsList);
-  const [minPrice, setMinPrice] = useState('');
-  const [maxPrice, setMaxPrice] = useState('');
+export class Products extends Component {
+  state = { products: productsList, minPrice: '', maxPrice: '' };
 
-  const minPricePlaceholder = useMemo(() => minBy(p => p.price, productsList), []);
-  const maxPricePlaceholder = useMemo(() => maxBy(p => p.price, productsList), []);
+  minPricePlaceholder = minBy(p => p.price, productsList);
+  maxPricePlaceholder = maxBy(p => p.price, productsList);
 
-  const handleMinPriceChange = useCallback(e => setMinPrice(toInt(e.target.value)), []);
-  const handleMaxPriceChange = useCallback(e => setMaxPrice(toInt(e.target.value)), []);
+  handleMinPriceChange = e => this.setState({ minPrice: toInt(e.target.value) });
+  handleMaxPriceChange = e => this.setState({ maxPrice: toInt(e.target.value) });
 
-  const handleOnlyMinValue = useCallback(() => {
-    const filteredProducts = productsList.filter(product => product.price >= minPrice);
-    setProducts(filteredProducts);
-  }, [minPrice]);
-  const handleOnlyMaxValue = useCallback(() => {
-    const filteredProducts = productsList.filter(product => product.price <= maxPrice);
-    setProducts(filteredProducts);
-  }, [maxPrice]);
-  const handleMinAndMaxValue = useCallback(() => {
+  handleOnlyMinValue = () => {
+    const filteredProducts = productsList.filter(product => product.price >= this.state.minPrice);
+    this.setState({ products: filteredProducts });
+  };
+  handleOnlyMaxValue = () => {
+    const filteredProducts = productsList.filter(product => product.price <= this.state.maxPrice);
+    this.setState({ products: filteredProducts });
+  };
+  handleMinAndMaxValue = () => {
     const filteredProducts = productsList.filter(
-      product => product.price >= minPrice && product.price <= maxPrice
+      product => product.price >= this.state.minPrice && product.price <= this.state.maxPrice
     );
-    setProducts(filteredProducts);
-  }, [maxPrice, minPrice]);
+    this.setState({ products: filteredProducts });
+  };
 
-  const handleProductsSearch = useCallback(
-    e => {
-      e.preventDefault();
+  handleProductsSearch = e => {
+    e.preventDefault();
 
-      const isPriceZero = Number(minPrice) === 0 && Number(maxPrice) === 0;
-      const isOnlyMinPricePresented = minPrice > 0 && Number(maxPrice) === 0;
-      const isOnlyMaxPricePresented = Number(minPrice) === 0 && maxPrice > 0;
+    const isPriceZero = Number(this.state.minPrice) === 0 && Number(this.state.maxPrice) === 0;
+    const isOnlyMinPricePresented = this.state.minPrice > 0 && Number(this.state.maxPrice) === 0;
+    const isOnlyMaxPricePresented = Number(this.state.minPrice) === 0 && this.state.maxPrice > 0;
 
-      if (isPriceZero) {
-        setProducts(productsList);
-      } else if (isOnlyMinPricePresented) {
-        handleOnlyMinValue();
-      } else if (isOnlyMaxPricePresented) {
-        handleOnlyMaxValue();
-      } else {
-        handleMinAndMaxValue();
-      }
-    },
-    [handleMinAndMaxValue, handleOnlyMaxValue, handleOnlyMinValue, maxPrice, minPrice]
-  );
+    if (isPriceZero) {
+      this.setState({ products: productsList });
+    } else if (isOnlyMinPricePresented) {
+      this.handleOnlyMinValue();
+    } else if (isOnlyMaxPricePresented) {
+      this.handleOnlyMaxValue();
+    } else {
+      this.handleMinAndMaxValue();
+    }
+  };
 
-  return (
-    <Container>
-      <section>
-        <Title as="h1">Список товаров</Title>
-        <ProductListContainer>
-          <ProductsSearchForm
-            minPrice={minPrice}
-            maxPrice={maxPrice}
-            minPricePlaceholder={minPricePlaceholder.price}
-            maxPricePlaceholder={maxPricePlaceholder.price}
-            handleMinPriceChange={handleMinPriceChange}
-            handleMaxPriceChange={handleMaxPriceChange}
-            handleProductsSearch={handleProductsSearch}
-          />
-          <ProductsList products={products} />
-        </ProductListContainer>
-      </section>
-    </Container>
-  );
-};
+  render() {
+    return (
+      <>
+        <LogRender {...this.props} {...this.state} componentContext={this} />
+        <Container>
+          <section>
+            <Title as="h1">Список товаров</Title>
+            <ProductListContainer>
+              <ProductsSearchForm
+                minPrice={this.state.minPrice}
+                maxPrice={this.state.maxPrice}
+                minPricePlaceholder={this.minPricePlaceholder.price}
+                maxPricePlaceholder={this.maxPricePlaceholder.price}
+                handleMinPriceChange={this.handleMinPriceChange}
+                handleMaxPriceChange={this.handleMaxPriceChange}
+                handleProductsSearch={this.handleProductsSearch}
+              />
+              <ProductsList products={this.state.products} />
+            </ProductListContainer>
+          </section>
+        </Container>
+      </>
+    );
+  }
+}
