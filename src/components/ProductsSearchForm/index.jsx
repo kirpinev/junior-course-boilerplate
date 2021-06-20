@@ -1,12 +1,10 @@
 import React, { Component } from 'react';
-import { LogRender } from '../LogRender';
 import { Form } from '../../uikit';
 
 export class ProductsSearchForm extends Component {
   render() {
     return (
       <>
-        <LogRender {...this.props} {...this.state} componentContext={this} />
         <Form width="256px" marginRight="48px">
           <Form.Legend marginBottom="16px">Цена</Form.Legend>
           <Form.Label htmlFor="min" marginRight="12px">

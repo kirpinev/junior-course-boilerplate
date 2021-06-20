@@ -1,0 +1,1 @@
+export { logRender } from './logRender';

@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import { formatMoney } from 'csssr-school-utils';
 import ProductCard from 'csssr-school-product-card';
-import { LogRender } from '../LogRender';
 import { List } from '../../uikit';
 import { Icons } from '../../Icons';
 
@@ -10,7 +9,6 @@ export class ProductsList extends Component {
     if (this.props.products.length === 0) {
       return (
         <>
-          <LogRender {...this.props} {...this.state} componentContext={this} />
           <List>
             <List.Item>Товаров не найдено :(</List.Item>
           </List>
@@ -20,7 +18,6 @@ export class ProductsList extends Component {
 
     return (
       <>
-        <LogRender {...this.props} {...this.state} componentContext={this} />
         <List>
           {this.props.products.map(item => (
             <List.Item key={item.id}>
