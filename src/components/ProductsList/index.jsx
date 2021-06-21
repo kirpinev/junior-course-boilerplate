@@ -1,29 +1,29 @@
 import React from 'react';
+import { formatMoney } from 'csssr-school-utils';
 import ProductCard from 'csssr-school-product-card';
-import { Icons } from '../../Icons';
 import { List } from '../../uikit';
+import { Icons } from '../../Icons';
+import { LogRender } from '../LogRender';
 
-export const ProductsList = ({ products = [] }) => {
-  if (products.length === 0) {
-    return <p>Список товаров пуст</p>;
+export class ProductsList extends LogRender {
+  render() {
+    return (
+      <List>
+        {this.props.products.map(item => (
+          <List.Item key={item.id}>
+            <ProductCard
+              isInStock={item.isInStock}
+              img={item.img}
+              title={item.title}
+              price={formatMoney(item.price, 0)}
+              subPriceContent={item.subPriceContent}
+              maxRating={5}
+              rating={item.rating}
+              ratingComponent={Icons.Star}
+            />
+          </List.Item>
+        ))}
+      </List>
+    );
   }
-
-  return (
-    <List>
-      {products.map(item => (
-        <List.Item key={item.id}>
-          <ProductCard
-            isInStock={item.isInStock}
-            img={item.img}
-            title={item.title}
-            price={item.price}
-            subPriceContent={item.subPriceContent}
-            maxRating={5}
-            rating={item.rating}
-            ratingComponent={Icons.Star}
-          />
-        </List.Item>
-      ))}
-    </List>
-  );
-};
+}

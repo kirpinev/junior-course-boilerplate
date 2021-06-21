@@ -10,6 +10,7 @@ const List = styled.ul`
   grid-row-gap: 49px;
   padding: 0;
   margin: 0;
+  width: 736px;
 `;
 
 List.Item = Item;
