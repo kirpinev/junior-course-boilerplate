@@ -4,11 +4,11 @@ import { ProductsSearchForm, ProductsList, EmptyProductsList, LogRender } from '
 import { Container, ProductListContainer, Title } from '../../uikit';
 import productsList from '../../products.json';
 
-export class Products extends LogRender {
-  state = { products: productsList, minPrice: '', maxPrice: '' };
+const defaultMinPrice = minBy(p => p.price, productsList);
+const defaultMaxPrice = maxBy(p => p.price, productsList);
 
-  minPricePlaceholder = minBy(p => p.price, productsList);
-  maxPricePlaceholder = maxBy(p => p.price, productsList);
+export class Products extends LogRender {
+  state = { products: productsList, minPrice: defaultMinPrice.price, maxPrice: defaultMaxPrice.price };
 
   handleMinPriceChange = e => this.setState({ minPrice: toInt(e.target.value) });
   handleMaxPriceChange = e => this.setState({ maxPrice: toInt(e.target.value) });
@@ -55,8 +55,8 @@ export class Products extends LogRender {
             <ProductsSearchForm
               minPrice={this.state.minPrice}
               maxPrice={this.state.maxPrice}
-              minPricePlaceholder={this.minPricePlaceholder.price}
-              maxPricePlaceholder={this.maxPricePlaceholder.price}
+              minPricePlaceholder={defaultMinPrice.price}
+              maxPricePlaceholder={defaultMaxPrice.price}
               handleMinPriceChange={this.handleMinPriceChange}
               handleMaxPriceChange={this.handleMaxPriceChange}
               handleProductsSearch={this.handleProductsSearch}
