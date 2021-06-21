@@ -1,6 +1,7 @@
 import React from 'react';
 import { Form } from '../../uikit';
 import { LogRender } from '../LogRender';
+import { InputNumber } from '../InputNumber';
 
 export class ProductsSearchForm extends LogRender {
   render() {
@@ -10,7 +11,7 @@ export class ProductsSearchForm extends LogRender {
         <Form.Label htmlFor="min" marginRight="12px">
           от
         </Form.Label>
-        <Form.Input
+        <InputNumber
           id="min"
           width="91px"
           marginRight="17px"
@@ -21,7 +22,7 @@ export class ProductsSearchForm extends LogRender {
         <Form.Label htmlFor="max" marginRight="12px">
           до
         </Form.Label>
-        <Form.Input
+        <InputNumber
           id="max"
           width="91px"
           value={this.props.maxPrice}
