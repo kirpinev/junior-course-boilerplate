@@ -1,12 +1,11 @@
-import React from 'react';
-import { LogRender } from '../LogRender';
-import { InputNumber } from '../InputNumber';
+import React, { Component } from 'react';
+import { NumberInput } from '../NumberInput';
 import { Form } from '../../uikit';
-import { withInputValueCheck } from '../../hocs';
+import { withInputValueCheck, withLogRender } from '../../hocs';
 
-const InputNumberWithValueCheck = withInputValueCheck(InputNumber);
+const InputNumberWithValueCheckAndLogger = withInputValueCheck(withLogRender(NumberInput));
 
-export class ProductsSearchForm extends LogRender {
+export class ProductsSearchForm extends Component {
   render() {
     return (
       <Form width="256px" marginRight="48px">
@@ -14,7 +13,8 @@ export class ProductsSearchForm extends LogRender {
         <Form.Label htmlFor="min" marginRight="12px">
           от
         </Form.Label>
-        <InputNumberWithValueCheck
+        <InputNumberWithValueCheckAndLogger
+          id="min"
           name="min"
           width="91px"
           marginRight="17px"
@@ -25,7 +25,8 @@ export class ProductsSearchForm extends LogRender {
         <Form.Label htmlFor="max" marginRight="12px">
           до
         </Form.Label>
-        <InputNumberWithValueCheck
+        <InputNumberWithValueCheckAndLogger
+          id="max"
           name="max"
           width="91px"
           value={this.props.max}

@@ -1,16 +1,15 @@
-import React from 'react';
-import { InputDiscount } from '../InputDiscount';
-import { LogRender } from '../LogRender';
+import React, { Component } from 'react';
+import { DiscountInput } from '../DiscountInput';
 import { Form } from '../../uikit';
-import { withInputValueCheck } from '../../hocs';
+import { withInputValueCheck, withLogRender } from '../../hocs';
 
-const InputDiscountWithValueCheck = withInputValueCheck(InputDiscount);
+const InputDiscountWithValueCheckAndLogger = withInputValueCheck(withLogRender(DiscountInput));
 
-export class DiscountForm extends LogRender {
+export class DiscountForm extends Component {
   render() {
     return (
       <Form width="256px" marginRight="48px">
-        <InputDiscountWithValueCheck {...this.props} />
+        <InputDiscountWithValueCheckAndLogger {...this.props} />
       </Form>
     );
   }

@@ -1,17 +1,19 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { formatMoney } from 'csssr-school-utils';
 import ProductCard from 'csssr-school-product-card';
 import { List } from '../../uikit';
 import { Icons } from '../../Icons';
-import { LogRender } from '../LogRender';
+import { withLogRender } from '../../hocs';
 
-export class ProductsList extends LogRender {
+const ProductCardWithLogger = withLogRender(ProductCard);
+
+export class ProductsList extends Component {
   render() {
     return (
       <List>
         {this.props.products.map(item => (
           <List.Item key={item.id}>
-            <ProductCard
+            <ProductCardWithLogger
               isInStock={item.isInStock}
               img={item.img}
               title={item.title}

@@ -1,19 +1,18 @@
-import React from 'react';
+import React, { Component, memo } from 'react';
 import { maxBy, minBy, toInt } from 'csssr-school-utils';
-import {
-  ProductsSearchForm,
-  DiscountForm,
-  ProductsList,
-  EmptyProductsList,
-  LogRender,
-} from '../../components';
+import { ProductsSearchForm, DiscountForm, ProductsList, EmptyProductsList } from '../../components';
 import { Container, FormsContainer, ProductListContainer, Title } from '../../uikit';
+import { withLogRender } from '../../hocs';
 import productsList from '../../products.json';
 
 const defaultMinPrice = minBy(p => p.price, productsList).price;
 const defaultMaxPrice = maxBy(p => p.price, productsList).price;
 
-export class Products extends LogRender {
+const ProductsListWithLogger = withLogRender(ProductsList);
+const DiscountFormWithLogger = memo(withLogRender(DiscountForm));
+const ProductsSearchFormWithLogger = memo(withLogRender(ProductsSearchForm));
+
+export class Products extends Component {
   state = { min: defaultMinPrice, max: defaultMaxPrice, discount: 0 };
 
   handleInputChange = e => this.setState({ [e.target.name]: toInt(e.target.value) });
@@ -40,8 +39,7 @@ export class Products extends LogRender {
   };
 
   render() {
-    let filteredProductsList;
-    filteredProductsList = this.handleProductsSearch();
+    let filteredProductsList = this.handleProductsSearch();
 
     if (this.state.discount) {
       filteredProductsList = filteredProductsList.filter(product => product.discount >= this.state.discount);
@@ -53,14 +51,14 @@ export class Products extends LogRender {
           <Title as="h1">Список товаров</Title>
           <ProductListContainer>
             <FormsContainer>
-              <ProductsSearchForm
+              <ProductsSearchFormWithLogger
                 min={this.state.min}
                 max={this.state.max}
                 minPricePlaceholder={defaultMinPrice}
                 maxPricePlaceholder={defaultMaxPrice}
                 handleInputChange={this.handleInputChange}
               />
-              <DiscountForm
+              <DiscountFormWithLogger
                 title="Скидка"
                 name="discount"
                 value={this.state.discount}
@@ -70,7 +68,7 @@ export class Products extends LogRender {
             {!filteredProductsList || filteredProductsList.length === 0 ? (
               <EmptyProductsList />
             ) : (
-              <ProductsList products={filteredProductsList} />
+              <ProductsListWithLogger products={filteredProductsList} />
             )}
           </ProductListContainer>
         </section>
