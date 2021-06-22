@@ -1,70 +1,76 @@
 import React from 'react';
 import { maxBy, minBy, toInt } from 'csssr-school-utils';
-import { ProductsSearchForm, ProductsList, EmptyProductsList, LogRender } from '../../components';
-import { Container, ProductListContainer, Title } from '../../uikit';
+import {
+  ProductsSearchForm,
+  DiscountForm,
+  ProductsList,
+  EmptyProductsList,
+  LogRender,
+} from '../../components';
+import { Container, FormsContainer, ProductListContainer, Title } from '../../uikit';
 import productsList from '../../products.json';
 
-const defaultMinPrice = minBy(p => p.price, productsList);
-const defaultMaxPrice = maxBy(p => p.price, productsList);
+const defaultMinPrice = minBy(p => p.price, productsList).price;
+const defaultMaxPrice = maxBy(p => p.price, productsList).price;
 
 export class Products extends LogRender {
-  state = { products: productsList, minPrice: defaultMinPrice.price, maxPrice: defaultMaxPrice.price };
+  state = { min: defaultMinPrice, max: defaultMaxPrice, discount: 0 };
 
-  handleMinPriceChange = e => this.setState({ minPrice: toInt(e.target.value) });
-  handleMaxPriceChange = e => this.setState({ maxPrice: toInt(e.target.value) });
+  handleInputChange = e => this.setState({ [e.target.name]: toInt(e.target.value) });
 
-  handleOnlyMinValue = () => {
-    const filteredProducts = productsList.filter(product => product.price >= this.state.minPrice);
-    this.setState({ products: filteredProducts });
-  };
-  handleOnlyMaxValue = () => {
-    const filteredProducts = productsList.filter(product => product.price <= this.state.maxPrice);
-    this.setState({ products: filteredProducts });
-  };
-  handleMinAndMaxValue = () => {
-    const filteredProducts = productsList.filter(
-      product => product.price >= this.state.minPrice && product.price <= this.state.maxPrice
-    );
-    this.setState({ products: filteredProducts });
-  };
+  handleOnlyMinValue = () => productsList.filter(product => product.price >= this.state.min);
+  handleOnlyMaxValue = () => productsList.filter(product => product.price <= this.state.max);
+  handleMinAndMaxValue = () =>
+    productsList.filter(product => product.price >= this.state.min && product.price <= this.state.max);
 
-  handleProductsSearch = e => {
-    e.preventDefault();
-
-    const isPriceZero = Number(this.state.minPrice) === 0 && Number(this.state.maxPrice) === 0;
-    const isOnlyMinPricePresented = this.state.minPrice > 0 && Number(this.state.maxPrice) === 0;
-    const isOnlyMaxPricePresented = Number(this.state.minPrice) === 0 && this.state.maxPrice > 0;
+  handleProductsSearch = () => {
+    const isPriceZero = Number(this.state.min) === 0 && Number(this.state.max) === 0;
+    const isOnlyMinPricePresented = this.state.min > 0 && Number(this.state.max) === 0;
+    const isOnlyMaxPricePresented = Number(this.state.min) === 0 && this.state.max > 0;
 
     if (isPriceZero) {
-      this.setState({ products: productsList });
+      return productsList;
     } else if (isOnlyMinPricePresented) {
-      this.handleOnlyMinValue();
+      return this.handleOnlyMinValue();
     } else if (isOnlyMaxPricePresented) {
-      this.handleOnlyMaxValue();
+      return this.handleOnlyMaxValue();
     } else {
-      this.handleMinAndMaxValue();
+      return this.handleMinAndMaxValue();
     }
   };
 
   render() {
+    let filteredProductsList;
+    filteredProductsList = this.handleProductsSearch();
+
+    if (this.state.discount) {
+      filteredProductsList = filteredProductsList.filter(product => product.discount >= this.state.discount);
+    }
+
     return (
       <Container>
         <section>
           <Title as="h1">Список товаров</Title>
           <ProductListContainer>
-            <ProductsSearchForm
-              minPrice={this.state.minPrice}
-              maxPrice={this.state.maxPrice}
-              minPricePlaceholder={defaultMinPrice.price}
-              maxPricePlaceholder={defaultMaxPrice.price}
-              handleMinPriceChange={this.handleMinPriceChange}
-              handleMaxPriceChange={this.handleMaxPriceChange}
-              handleProductsSearch={this.handleProductsSearch}
-            />
-            {!this.state.products || this.state.products.length === 0 ? (
+            <FormsContainer>
+              <ProductsSearchForm
+                min={this.state.min}
+                max={this.state.max}
+                minPricePlaceholder={defaultMinPrice}
+                maxPricePlaceholder={defaultMaxPrice}
+                handleInputChange={this.handleInputChange}
+              />
+              <DiscountForm
+                title="Скидка"
+                name="discount"
+                value={this.state.discount}
+                onChange={this.handleInputChange}
+              />
+            </FormsContainer>
+            {!filteredProductsList || filteredProductsList.length === 0 ? (
               <EmptyProductsList />
             ) : (
-              <ProductsList products={this.state.products} />
+              <ProductsList products={filteredProductsList} />
             )}
           </ProductListContainer>
         </section>

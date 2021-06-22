@@ -1,7 +1,10 @@
 import React from 'react';
-import { Form } from '../../uikit';
 import { LogRender } from '../LogRender';
 import { InputNumber } from '../InputNumber';
+import { Form } from '../../uikit';
+import { withInputValueCheck } from '../../hocs';
+
+const InputNumberWithValueCheck = withInputValueCheck(InputNumber);
 
 export class ProductsSearchForm extends LogRender {
   render() {
@@ -11,35 +14,24 @@ export class ProductsSearchForm extends LogRender {
         <Form.Label htmlFor="min" marginRight="12px">
           от
         </Form.Label>
-        <InputNumber
-          id="min"
+        <InputNumberWithValueCheck
+          name="min"
           width="91px"
           marginRight="17px"
-          value={this.props.minPrice}
+          value={this.props.min}
           placeholder={this.props.minPricePlaceholder}
-          onChange={this.props.handleMinPriceChange}
+          onChange={this.props.handleInputChange}
         />
         <Form.Label htmlFor="max" marginRight="12px">
           до
         </Form.Label>
-        <InputNumber
-          id="max"
+        <InputNumberWithValueCheck
+          name="max"
           width="91px"
-          value={this.props.maxPrice}
+          value={this.props.max}
           placeholder={this.props.maxPricePlaceholder}
-          onChange={this.props.handleMaxPriceChange}
+          onChange={this.props.handleInputChange}
         />
-        <Form.Button
-          width="100%"
-          height="32px"
-          marginTop="24px"
-          backgroundColor="#323C48"
-          color="#fff"
-          border="none"
-          onClick={this.props.handleProductsSearch}
-        >
-          Найти
-        </Form.Button>
       </Form>
     );
   }
