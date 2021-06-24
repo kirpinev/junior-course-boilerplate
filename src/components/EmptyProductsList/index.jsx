@@ -1,7 +1,7 @@
-import React, { Component } from 'react';
+import React, { PureComponent } from 'react';
 import { List } from '../../uikit';
 
-export class EmptyProductsList extends Component {
+export class EmptyProductsList extends PureComponent {
   render() {
     return (
       <List>
