@@ -7,4 +7,5 @@ export const Legend = styled.legend`
   line-height: 28px;
   color: #323c48;
   margin-bottom: ${p => p.marginBottom || '0'};
+  margin-top: ${p => p.marginTop || '0'};
 `;

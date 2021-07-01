@@ -7,7 +7,8 @@
     "price": 1000,
     "subPriceContent": " ₽",
     "rating": 3,
-    "discount": 20
+    "discount": 20,
+    "category": "SpaceX"
   },
   {
     "id": 2,
@@ -17,7 +18,8 @@
     "price": 900,
     "subPriceContent": " ₽",
     "rating": 5,
-    "discount": 5
+    "discount": 5,
+    "category": "SpaceX"
   },
   {
     "id": 3,
@@ -27,16 +29,51 @@
     "price": 1499,
     "subPriceContent": " ₽",
     "rating": 4,
-    "discount": 10
+    "discount": 10,
+    "category": "SpaceX"
   },
   {
     "id": 4,
     "isInStock": true,
-    "img": "https://labuda.blog/wp-content/uploads/2020/01/c2f02231cf4.jpeg",
+    "img": "https://tehnot.com/wp-content/uploads/2019/02/SpaceX_Crew_Dragon_More_cropped.jpg",
     "title": "Dragon",
     "price": 450,
     "subPriceContent": " ₽",
     "rating": 4,
-    "discount": 15
+    "discount": 15,
+    "category": "SpaceX"
+  },
+  {
+    "id": 5,
+    "isInStock": true,
+    "img": "https://habrastorage.org/getpro/habr/upload_files/2a0/c49/a0b/2a0c49a0b221b8606ee8f620308da0ed.jpeg",
+    "title": "New Shepard",
+    "price": 300,
+    "subPriceContent": " ₽",
+    "rating": 5,
+    "discount": 25,
+    "category": "Blue Origin"
+  },
+  {
+    "id": 6,
+    "isInStock": false,
+    "img": "https://spacenews.com/wp-content/uploads/2017/09/newglenn-7m-large-879x485.jpg",
+    "title": "New Glenn",
+    "price": 2000,
+    "subPriceContent": " ₽",
+    "rating": 4,
+    "discount": 0,
+    "category": "Blue Origin"
+  },
+  {
+    "id": 7,
+    "isInStock": true,
+    "img": "https://www.blueorigin.com/assets/blueorigin_bluemoon.jpg",
+    "title": "Blue Moon",
+    "price": 1800,
+    "subPriceContent": " ₽",
+    "rating": 5,
+    "discount": 0,
+    "category": "Blue Origin"
   }
 ]

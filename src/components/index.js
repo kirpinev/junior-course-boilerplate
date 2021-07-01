@@ -3,3 +3,4 @@ export * from './DiscountForm';
 export * from './ProductsList';
 export * from './EmptyProductsList';
 export * from './DiscountInput';
+export * from './CategoryForm';
