@@ -112,7 +112,7 @@ export class Products extends Component {
     }
   };
 
-  handleFiltersDelete = () => {
+  handleFiltersReset = () => {
     this.setState({
       min: defaultMinPrice,
       max: defaultMaxPrice,
