@@ -146,11 +146,6 @@ const mapDispatchToProps = dispatch => ({
       type: 'UPDATE_CATEGORIES',
       payload: categories,
     }),
-  filterSelectedCategories: category =>
-    dispatch({
-      type: 'FILTER_CATEGORIES',
-      payload: category,
-    }),
   resetSearchParams: () =>
     dispatch({
       type: 'RESET',
