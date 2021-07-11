@@ -2,26 +2,26 @@ import { connect } from 'react-redux';
 import { toInt } from 'csssr-school-utils';
 import { ProductsSearchForm } from '../../components';
 
-const mapStateToProps = state => ({
-  min: state.price.min,
-  max: state.price.max,
-  defaultMinPrice: state.defaultMinPrice,
-  defaultMaxPrice: state.defaultMaxPrice,
+const mapStateToProps = ({ price: { min, max }, defaultMinPrice, defaultMaxPrice }) => ({
+  min,
+  max,
+  defaultMinPrice,
+  defaultMaxPrice,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChange: e => {
-    if (e.target.name === 'min') {
+  onChange: ({ target: { name, value } }) => {
+    if (name === 'min') {
       return dispatch({
         type: 'UPDATE_MIN',
-        payload: toInt(e.target.value),
+        payload: toInt(value),
       });
     }
 
-    if (e.target.name === 'max') {
+    if (name === 'max') {
       return dispatch({
         type: 'UPDATE_MAX',
-        payload: toInt(e.target.value),
+        payload: toInt(value),
       });
     }
   },

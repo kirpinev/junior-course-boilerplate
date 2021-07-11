@@ -2,15 +2,15 @@ import { connect } from 'react-redux';
 import { toInt } from 'csssr-school-utils';
 import { DiscountForm } from '../../components';
 
-const mapStateToProps = state => ({
-  discount: state.discount,
+const mapStateToProps = ({ discount }) => ({
+  discount,
 });
 
 const mapDispatchToProps = dispatch => ({
-  onChange: e =>
+  onChange: ({ target: { value } }) =>
     dispatch({
       type: 'UPDATE_DISCOUNT',
-      payload: toInt(e.target.value),
+      payload: toInt(value),
     }),
 });
 

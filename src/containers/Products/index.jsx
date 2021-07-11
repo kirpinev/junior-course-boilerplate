@@ -133,11 +133,11 @@ class Products extends Component {
   }
 }
 
-const mapStateTopProps = state => ({
-  min: state.price.min,
-  max: state.price.max,
-  discount: state.discount,
-  selectedCategories: state.selectedCategories,
+const mapStateTopProps = ({ price: { min, max }, discount, selectedCategories }) => ({
+  min,
+  max,
+  discount,
+  selectedCategories,
 });
 
 const mapDispatchToProps = dispatch => ({
